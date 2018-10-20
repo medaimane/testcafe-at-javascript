@@ -1,12 +1,16 @@
 'use strict'
 
 // DOM Elements
+// inputs
 const username = document.getElementById('username');
 const task = document.getElementById('task');
+const checkbox = document.getElementById('checkbox');
 
+// the form
 const form = document.getElementById('form');
+const title = document.getElementById('title');
 
-// DOM Quiry
+// Events
 form.addEventListener('submit', (e) => {
     e.preventDefault();
 
@@ -14,7 +18,7 @@ form.addEventListener('submit', (e) => {
     swal({
         title: `Good job! The task created by ${username.value} with success`,
         text: `Save this task : ${task.value}.`,
-        icon: "success",
+        icon: "info",
         buttons: {
             cancel: {
                 text: "Cancel",
@@ -33,19 +37,34 @@ form.addEventListener('submit', (e) => {
         }
     })
     .then((value) => {
-        setTimeout(() => {
-            if(value) {
-                    swal({
-                        title: "Task saved with success",
-                        icon: "success"
-                    });
-            } else {
-                    swal({
-                        title: "Task deleted",
-                        icon: "warning",
-                    });
-            }
-        }, 5000);
+        if(value) {
+            swal({
+                title: "Task saved with success",
+                icon: "success",
+                buttons: {
+                    done: {
+                        text: "Done",
+                        visible: true,
+                        className: "donebtn",
+                        closeModal: true,
+                    },
+                }
+            });
+        } else {
+            swal({
+                title: "Task deleted",
+                icon: "warning",
+                buttons: {
+                    done: {
+                        text: "Done",
+                        visible: true,
+                        className: "donebtn",
+                        closeModal: true,
+                    },
+                }
+            });
+        }
+        title.innerHTML = `Thank you, ${username.value}!`;
     });
 
 });
