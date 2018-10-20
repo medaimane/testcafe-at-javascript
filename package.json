@@ -1,0 +1,17 @@
+{
+  "name": "testcafe-at-javascript",
+  "version": "1.0.0",
+  "description": "JavaScript automation testing using testCafe",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "testcafe chrome ./test/firstSimpleTest.js"
+  },
+  "author": "Mohamed Aimane Skhairi",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.16.4",
+    "sweetalert": "^2.1.0",
+    "testcafe": "^0.22.0"
+  }
+}
