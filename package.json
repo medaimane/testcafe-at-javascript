@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "testcafe chrome ./test/firstSimpleTest.js"
+    "test": "testcafe chrome ./test/firstSimpleTest.js",
+    "testGithub": "testcafe chrome ./test/GithubTest.js"
   },
   "author": "Mohamed Aimane Skhairi",
   "license": "MIT",

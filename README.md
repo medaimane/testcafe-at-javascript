@@ -6,7 +6,7 @@
 
 ### Quick Start
 
-Projct requirements : node.js and npm.
+Project requirements : node.js and npm.
 
 ``` bash
 # Install TestCafe

@@ -1,4 +1,4 @@
-import { Selector, t } from 'testcafe';
+import { Selector } from 'testcafe';
 import _ from 'lodash';
 
 // Declare a fixture and create a test for the index.html page
@@ -23,5 +23,5 @@ test('My first test', async t => {
         .click('.donebtn')
         
         // Use the assertion to check if the actual title is equal to the expected one.
-        .expect(Selector('#title').innerText).eql(`Thank you, TestCafe!`); // for the alert
+        .expect(Selector('#title').innerText).eql(`Thank you, TestCafe!`);
 });

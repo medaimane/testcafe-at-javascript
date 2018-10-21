@@ -11,7 +11,7 @@ const form = document.getElementById('form');
 const title = document.getElementById('title');
 
 // Events
-form.addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) => { 
     e.preventDefault();
 
     // uses of sweet alert
