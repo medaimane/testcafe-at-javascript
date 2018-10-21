@@ -1,4 +1,5 @@
-import {Selector, RequestLogger} from 'testcafe';
+import {Selector, ClientFunction, RequestLogger} from 'testcafe';
+import {_} from 'lodash';
 
 // 1 ° Fixture
 fixture.skip `Testing 1 : GitHub User`
@@ -95,7 +96,6 @@ fixture `Testing 2 : GitHub Login`
 test
     .meta('testId', 'test003')
     .before( async t => {
-
         const login_link = await Selector('a').withText('Sign in');
         await t
             .expect(login_link.exists).ok()
@@ -103,9 +103,16 @@ test
             .catch((reason) => {
                 console.error(reason.type);
             });
-
     })
-    ('Login', async t => {
+    ('Login with Username', async t => {
+
+        // getLocation usng ClientFunction
+        // const getLocation = ClientFunction(() => document.location.href.toString());
+
+        await t
+            .expect(await ClientFunction(() => document.location.href.toString())()).eql('https://github.com/login', 'The page is valid');
+
+        const login_form = await Selector('form');
 
         const username = await Selector('input[id="login_field"]');
         const password = await Selector('input[id="password"]');
@@ -115,12 +122,24 @@ test
         await t
             .setTestSpeed(0.1)
             
+            .expect(login_form.exists).ok()
+            .expect(login_form.getAttribute('method')).eql('post', 'form method valid')
+            .expect(login_form.getAttribute('action')).eql('/session', 'form action valid')
+
             .expect(username.exists).ok()
+            .expect(username.value).eql('', 'username input is empty', { timeout: 500 })
+            
             .expect(password.exists).ok()
+            .expect(password.value).eql('', 'password input is empty', { timeout: 500 })
+            
             .expect(loginbtn.exists).ok()
             
-            .typeText(username, 'testcafeUsername') // tape username
-            .typeText(password, 'testcafePassword123') // tape password
+            .typeText(username, 'testcafeUsername')
+            // .typeText(username, _.sample[true, false] ? 'testcafeUsername' : 'testcafeEmail@email.com')
+            .expect(username.value).contains('testcafeUsername', 'username input contains text "testcafeUsername"', { timeout: 500 })
+
+            .typeText(password, 'testcafePassword123')
+            .expect(password.value).contains('testcafePassword123', 'password input contains the password', { timeout: 500 })
             
             .click(loginbtn)
             .catch((reason) => {
@@ -138,7 +157,7 @@ test
             .click(user_links_dropdown)
             
             .setTestSpeed(0.2)
-            .expect(get_logged_username).eql('testcafUsername')
+            .expect(get_logged_username).eql('testcafeUsername', 'The username checked on dropdown menu')
             .expect(logoutbtn.exists).ok()
             
             .setTestSpeed(0.1)
